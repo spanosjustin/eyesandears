@@ -1,105 +1,125 @@
-/* Scene Portal — basic interactivity
-   - Fills the list
-   - Updates flyer/details when a show is clicked
-   - Streams some delightfully 2000s news into the marquee
-*/
-
-// Demo data (swap with your backend later)
+// Demo data
 const shows = [
     {
         id: "s1",
         title: "The Flaming Squirrels + Guests",
-        date: "Fri, May 2 — 8:00PM",
+        date: "Fri, May 2 — 8:00 PM",
         venue: "The Boiler Room",
-        doors: "7:00PM",
-        flyer: "https://placehold.co/240x340?text=Flaming+Squirrels",
-        desc: "All-ages indie night. $10 at the door. Bring earplugs."
+        doors: "7:00 PM",
+        flyer: "https://placehold.co/600x800/png?text=Flaming+Squirrels",
+        desc: "All-ages indie night. $10 at the door.",
+        tickets: "https://example.com/tickets/1"
     },
     {
         id: "s2",
         title: "Midnight Laundry (EP Release)",
-        date: "Sat, May 3 — 9:30PM",
+        date: "Sat, May 3 — 9:30 PM",
         venue: "Warehouse 12",
-        doors: "8:30PM",
-        flyer: "https://placehold.co/240x340?text=Midnight+Laundry",
-        desc: "New EP drop party w/ neon lights & projections."
+        doors: "8:30 PM",
+        flyer: "https://placehold.co/600x800/png?text=Midnight+Laundry",
+        desc: "EP drop party with visuals and special guests.",
+        tickets: "https://example.com/tickets/2"
     },
     {
         id: "s3",
         title: "Crust Punks Unite Fest",
-        date: "Sun, May 4 — 6:00PM",
+        date: "Sun, May 4 — 6:00 PM",
         venue: "VFW Hall",
-        doors: "5:30PM",
-        flyer: "https://placehold.co/240x340?text=CPU+Fest",
-        desc: "Benefit show. Sliding scale $5–$15. Zine table on site."
+        doors: "5:30 PM",
+        flyer: "https://placehold.co/600x800/png?text=CPU+Fest",
+        desc: "Benefit show. Sliding scale $5–$15.",
+        tickets: ""
     },
     {
         id: "s4",
         title: "Jazz in the Back Room",
-        date: "Thu, May 8 — 7:30PM",
+        date: "Thu, May 8 — 7:30 PM",
         venue: "Cafe Andromeda",
-        doors: "7:00PM",
-        flyer: "https://placehold.co/240x340?text=Back+Room+Jazz",
-        desc: "Trio set. Candlelight. Limited seating, RSVP advised."
+        doors: "7:00 PM",
+        flyer: "https://placehold.co/600x800/png?text=Back+Room+Jazz",
+        desc: "Cozy trio set. Limited seating.",
+        tickets: "https://example.com/tickets/4"
     },
 ];
 
 const headlines = [
-    "Local heroes ‘Paper Tigers’ enter studio with 4-track.",
-    "DIY venue ‘The Dock’ adds second PA speaker (!!).",
-    "Looking for drummer: must love math rock & odd meters.",
-    "Zine #12 out now — free at counter of Cafe Andromeda.",
-    "Vinyl swap meet this weekend behind the library.",
+    "Paper Tigers enter the studio this weekend.",
+    "DIY venue ‘The Dock’ adds upgraded lighting.",
+    "Looking for drummer: math-rock friendly.",
+    "Zine #12 out now at Cafe Andromeda.",
+    "Vinyl swap meet Saturday behind the library."
 ];
 
-const $ = (sel, ctx = document) => ctx.querySelector(sel);
-const $$ = (sel, ctx = document) => Array.from(ctx.querySelectorAll(sel));
+// Utilities
+const $ = (s, c = document) => c.querySelector(s);
+const $$ = (s, c = document) => Array.from(c.querySelectorAll(s));
 
-function renderList() {
-    const list = $("#show-list");
+// Render list
+function renderList(data) {
+    const list = $("#showList");
     list.innerHTML = "";
-    shows.forEach((show, idx) => {
+    data.forEach((s, i) => {
         const li = document.createElement("li");
-        li.dataset.id = show.id;
-        li.innerHTML = `
-        <a href="#" class="reset">
-          <div class="title">${show.title}</div>
-          <div class="mono small">${show.date} — ${show.venue}</div>
-        </a>
+        const btn = document.createElement("button");
+        btn.className = "show-btn";
+        btn.type = "button";
+        btn.dataset.id = s.id;
+        btn.innerHTML = `
+        <strong>${s.title}</strong>
+        <span class="meta">${s.date} — ${s.venue}</span>
       `;
-        li.addEventListener("click", (e) => {
-            e.preventDefault();
-            selectShow(show.id);
-        });
+        btn.addEventListener("click", () => selectShow(s.id));
+        li.appendChild(btn);
         list.appendChild(li);
-
-        // Auto-select first item on load
-        if (idx === 0) selectShow(show.id);
+        if (i === 0) selectShow(s.id);
     });
 }
 
+// Select a show
 function selectShow(id) {
-    const show = shows.find(s => s.id === id);
-    if (!show) return;
+    const s = shows.find(x => x.id === id);
+    if (!s) return;
 
-    // Active item styling
-    $$("#show-list li").forEach(li => li.classList.toggle("active", li.dataset.id === id));
+    $$(".show-btn").forEach(b => b.dataset.active = (b.dataset.id === id));
 
-    // Update flyer & text
-    $("#flyer-img").src = show.flyer;
-    $("#flyer-img").alt = `${show.title} flyer`;
-    $("#flyer-title").textContent = show.title;
-    $("#flyer-info").textContent = `${show.date} — ${show.venue} — Doors ${show.doors}`;
-    $("#flyer-desc").textContent = show.desc;
+    $("#flyerImg").src = s.flyer;
+    $("#flyerImg").alt = `${s.title} flyer`;
+    $("#flyerName").textContent = s.title;
+    $("#flyerInfo").textContent = `${s.date} • ${s.venue} • Doors ${s.doors}`;
+    $("#flyerDesc").textContent = s.desc;
+
+    const ticket = $("#ticketLink");
+    if (s.tickets) {
+        ticket.hidden = false;
+        ticket.href = s.tickets;
+    } else {
+        ticket.hidden = true;
+        ticket.removeAttribute("href");
+    }
 }
 
-function renderNews() {
-    const mq = $("#news-marquee");
-    mq.textContent = headlines.map(h => `• ${h} `).join(" ");
+// Search
+function initSearch() {
+    const input = $("#search");
+    input.addEventListener("input", () => {
+        const q = input.value.toLowerCase().trim();
+        const filtered = shows.filter(s =>
+            [s.title, s.venue, s.date].some(v => v.toLowerCase().includes(q))
+        );
+        renderList(filtered.length ? filtered : shows);
+    });
+}
+
+// Ticker
+function initTicker() {
+    const track = $("#tickerTrack");
+    const items = [...headlines, ...headlines];
+    track.innerHTML = items.map(t => `<span class="dot">•</span> ${t}`).join("  ");
 }
 
 // Init
 document.addEventListener("DOMContentLoaded", () => {
-    renderList();
-    renderNews();
+    renderList(shows);
+    initSearch();
+    initTicker();
 });
