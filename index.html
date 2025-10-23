@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Local Shows – Scene Portal</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+
+    <!-- Site chrome / header -->
+    <div class="page-wrap">
+        <header class="site-header">
+            <h1>
+                <span class="spark">★</span>
+                Local Scene Portal
+                <span class="spark">★</span>
+            </h1>
+            <p class="tagline">your gateway to gigs, flyers & band gossip</p>
+        </header>
+
+        <!-- Top ad bar -->
+        <div class="ad-bar">
+            <marquee scrollamount="4" onmouseover="this.stop()" onmouseout="this.start()">
+                • Your Ad Here • Vintage Tees – 2 for $20 • Guitar Setups $35 • Zine Submissions Open •
+            </marquee>
+        </div>
+
+        <!-- Main content: two columns -->
+        <main class="content">
+            <!-- Left: list of local shows -->
+            <section class="panel list-panel">
+                <div class="panel-title">
+                    <img src="data:image/gif;base64,R0lGODlhCgAKAPAAAP///wAAACH5BAAAAAAALAAAAAAKAAoAAAIFhI+py+0Po5yUFQA7"
+                        alt="*" />
+                    Local Shows
+                </div>
+                <div class="panel-body">
+                    <ul id="show-list" class="show-list">
+                        <!-- JS injects items -->
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Right: flyer for selected local show -->
+            <section class="panel flyer-panel">
+                <div class="panel-title">
+                    <img src="data:image/gif;base64,R0lGODlhCgAKAPAAAP///wAAACH5BAAAAAAALAAAAAAKAAoAAAIFhI+py+0Po5yUFQA7"
+                        alt="*" />
+                    Selected Flyer
+                </div>
+                <div class="panel-body flyer-body">
+                    <div class="flyer-frame">
+                        <img id="flyer-img" alt="Flyer" />
+                    </div>
+                    <div class="flyer-meta">
+                        <h3 id="flyer-title">Pick a show from the left</h3>
+                        <p id="flyer-info" class="mono small">Date — Venue — Doors</p>
+                        <p id="flyer-desc"></p>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Bottom news bar -->
+        <section class="news-ticker">
+            <div class="ticker-title">Local Band News</div>
+            <div class="ticker-track">
+                <marquee scrollamount="5" onmouseover="this.stop()" onmouseout="this.start()" id="news-marquee">
+                    <!-- JS injects headlines -->
+                </marquee>
+            </div>
+        </section>
+
+        <footer class="site-footer mono small">
+            © 2003–2006* (vibes) Scene Portal • built with HTML/CSS/JS
+        </footer>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
