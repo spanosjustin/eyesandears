@@ -1,37 +1,19 @@
-/* ---------- Flatter + Smoother + Playful (Squared Edition) ---------- */
+/* ---------- Zine Web (Multicolor Riso-Ink • No Gradients) ---------- */
 :root {
-    /* Surfaces */
-    --bg: #eef1f7;
-    --paper: #ffffff;
-    --ink: #2b3448;
-    --muted: #5b6475;
-    --border: #d6d9e3;
+    --paper: #fffef8;
+    --bg: #fbfbf6;
+    --ink: #111;
+    --muted: #555;
+    --line: #000;
 
-    /* Playful accents */
-    --brand: #5b4fe3;
-    --mint: #18dbc4;
-    --coral: #ff6b81;
+    /* individual riso-style inks */
+    --riso-pink: #ff2a7f;
+    --riso-cyan: #00b7eb;
+    --riso-yellow: #ffe247;
 
-    /* UI feel */
-    --radius: 4px;
-    /* squared edges */
-    --shadow: 0 6px 18px rgba(17, 24, 39, .08), 0 2px 4px rgba(17, 24, 39, .08);
-}
-
-@media (prefers-color-scheme: dark) {
-    :root {
-        --bg: #121a2a;
-        --paper: #1b2233;
-        --ink: #e7ecf5;
-        --muted: #a8b3c7;
-        --border: #2b3550;
-
-        --brand: #a5b1ff;
-        --mint: #4df5d8;
-        --coral: #ff9cac;
-
-        --shadow: 0 10px 22px rgba(0, 0, 0, .45), 0 2px 5px rgba(0, 0, 0, .55);
-    }
+    --radius: 2px;
+    --pad: 12px;
+    --shadow: 4px 4px 0 rgba(0, 0, 0, .12);
 }
 
 * {
@@ -45,9 +27,11 @@ body {
 
 body {
     margin: 0;
-    font: 14px/1.6 "Segoe UI", Tahoma, Verdana, sans-serif;
+    background:
+        radial-gradient(800px 600px at 15% 20%, rgba(0, 0, 0, .025), transparent 60%) no-repeat,
+        var(--bg);
     color: var(--ink);
-    background: var(--bg);
+    font: 14px/1.65 "Courier New", Courier, monospace;
 }
 
 /* Shell */
@@ -60,22 +44,41 @@ body {
 /* Header */
 .header {
     display: flex;
-    align-items: end;
+    align-items: flex-end;
     justify-content: space-between;
     gap: 12px;
-    padding: 6px 2px 10px;
-    margin-bottom: 10px;
-    border-bottom: 1px solid var(--border);
+    padding: 8px 0 12px;
+    margin-bottom: 14px;
+    border-bottom: 2px solid var(--line);
+    background:
+        repeating-linear-gradient(0deg, rgba(0, 0, 0, .03) 0 2px, transparent 2px 4px);
 }
 
 .brand {
     margin: 0;
-    font-size: 26px;
-    letter-spacing: .25px;
-    color: var(--brand);
-    text-shadow: 0 1px 3px rgba(0, 0, 0, .25);
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-family: "Courier New", Courier, monospace;
 }
 
+.brand .marker {
+    font-size: 28px;
+    font-weight: 900;
+    text-transform: uppercase;
+    line-height: 1;
+    padding: 2px 6px 4px;
+    background: var(--riso-yellow);
+}
+
+.brand-sub {
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+/* Search */
 .tools {
     display: flex;
     align-items: center;
@@ -85,28 +88,24 @@ body {
 .search {
     width: 260px;
     max-width: 50vw;
-    padding: 10px 12px;
-    border-radius: var(--radius);
-    background: var(--paper);
-    border: 1px solid var(--border);
+    padding: 7px 10px;
+    border-radius: 0;
+    border: 2px solid var(--line);
+    background: #fff;
     color: var(--ink);
-    box-shadow: var(--shadow);
+    font-family: "Courier New", Courier, monospace;
 }
 
 .search:focus {
-    outline: 2px solid color-mix(in oklab, var(--brand) 45%, transparent);
-    outline-offset: 2px;
+    outline: 2px dotted var(--riso-cyan);
 }
 
 /* Ad bar */
 .adbar {
-    margin: 14px 0 18px;
-    padding: 12px 14px;
-    text-align: center;
-    color: color-mix(in oklab, var(--ink) 70%, var(--brand) 30%);
+    margin: 12px 0 18px;
+    padding: 10px 14px;
     background: var(--paper);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
+    border: 2px solid var(--line);
     box-shadow: var(--shadow);
 }
 
@@ -114,10 +113,10 @@ body {
 .grid {
     display: grid;
     gap: 18px;
-    grid-template-columns: 1.1fr 1fr;
+    grid-template-columns: 1.15fr 1fr;
 }
 
-@media (max-width: 900px) {
+@media(max-width:900px) {
     .grid {
         grid-template-columns: 1fr;
     }
@@ -126,37 +125,52 @@ body {
 /* Cards */
 .card {
     background: var(--paper);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
+    border: 2px solid var(--line);
     box-shadow: var(--shadow);
-}
-
-.card-head {
-    padding: 12px 14px;
-    border-bottom: 1px solid var(--border);
     position: relative;
 }
 
-.card-head h2 {
+.card-head {
+    padding: var(--pad);
+    border-bottom: 2px solid var(--line);
+    position: relative;
+}
+
+.z-head {
     margin: 0;
-    font-size: 15px;
-    color: var(--brand);
+    font: 900 16px/1 "Courier New", Courier, monospace;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--ink);
 }
 
-/* playful stripe */
-.card-head::after {
-    content: "";
+/* Stamps — flat riso inks */
+.stamp {
     position: absolute;
-    left: 12px;
-    right: 12px;
-    bottom: -1px;
-    height: 3px;
-    border-radius: 2px;
-    background: linear-gradient(90deg, var(--brand) 0 33%, var(--mint) 33% 66%, var(--coral) 66% 100%);
-    opacity: .5;
+    right: 10px;
+    top: -10px;
+    padding: 2px 6px;
+    border: 1px solid var(--line);
+    color: #000;
+    font: 700 10px/1 "Courier New", Courier, monospace;
+    transform: rotate(-3deg);
+    letter-spacing: 1px;
+    mix-blend-mode: multiply;
 }
 
-/* List */
+.stamp.pink {
+    background: var(--riso-pink);
+}
+
+.stamp.cyan {
+    background: var(--riso-cyan);
+}
+
+.stamp.yellow {
+    background: var(--riso-yellow);
+}
+
+/* Show list */
 .show-list {
     list-style: none;
     margin: 0;
@@ -166,57 +180,44 @@ body {
 }
 
 .show-list li {
-    margin: 8px;
+    margin: 10px;
 }
 
 .show-btn {
     width: 100%;
     text-align: left;
-    border: 1px solid var(--border);
-    background: var(--paper);
-    border-radius: var(--radius);
+    cursor: pointer;
     padding: 10px 12px;
+    background: #fff;
+    border: 2px solid var(--line);
     display: grid;
     gap: 4px;
-    cursor: pointer;
-    transition: transform .06s ease, box-shadow .18s ease, border-color .18s ease, background .18s ease;
-    box-shadow: 0 1px 0 rgba(0, 0, 0, .02);
-    position: relative;
-}
-
-/* playful colored dot */
-.show-btn::before {
-    content: "";
-    position: absolute;
-    left: 10px;
-    top: 12px;
-    width: 8px;
-    height: 8px;
-    border-radius: 2px;
-    background: var(--brand);
-    box-shadow: 14px 0 0 var(--mint), 28px 0 0 var(--coral);
-    opacity: .35;
+    transform: rotate(var(--tilt, 0deg));
+    transition: transform .05s ease, background .12s ease, border-color .12s ease;
+    box-shadow: 3px 3px 0 rgba(0, 0, 0, .15);
 }
 
 .show-btn strong {
-    padding-left: 42px;
     color: var(--ink);
+    font-weight: 900;
 }
 
 .show-btn .meta {
-    padding-left: 42px;
     color: var(--muted);
+    font-size: .92em;
 }
 
 .show-btn:hover {
-    transform: translateY(-1px);
-    background: color-mix(in oklab, var(--paper) 90%, var(--mint) 10%);
-    box-shadow: 0 8px 18px rgba(20, 26, 38, .10);
+    background: var(--riso-cyan);
+    border-color: var(--ink);
+    transform: translate(-2px, -2px) rotate(var(--tilt, 0deg));
+    box-shadow: 5px 5px 0 rgba(0, 0, 0, .25);
 }
 
+/* ✅ Updated — removed red border */
 .show-btn[data-active="true"] {
-    border-color: color-mix(in oklab, var(--brand) 60%, var(--border));
-    background: color-mix(in oklab, var(--paper) 85%, var(--brand) 15%);
+    background: var(--riso-yellow);
+    border-color: var(--line);
 }
 
 /* Flyer */
@@ -227,7 +228,7 @@ body {
     padding: 14px;
 }
 
-@media (max-width: 900px) {
+@media(max-width:900px) {
     .flyer {
         grid-template-columns: 1fr;
     }
@@ -236,48 +237,63 @@ body {
 .flyer-media {
     aspect-ratio: 3/4;
     overflow: hidden;
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    background: color-mix(in oklab, var(--paper) 92%, var(--brand) 8%);
+    border: 2px solid var(--line);
+    background: #fff;
     display: grid;
     place-items: center;
+}
+
+.flyer-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    filter: grayscale(90%) contrast(1.15);
+    transition: filter .2s ease;
+}
+
+.flyer-media:hover img {
+    filter: none;
 }
 
 .flyer-title {
     margin: .25rem 0 .1rem;
     color: var(--ink);
+    font-weight: 900;
 }
 
 .muted {
     color: var(--muted);
 }
 
-.btn {
-    display: inline-block;
-    border-radius: var(--radius);
-    padding: 10px 14px;
-    text-decoration: none;
-    border: 1px solid var(--border);
-    background: var(--paper);
-    color: var(--ink);
-    transition: transform .06s ease, filter .15s ease;
+/* Drop cap */
+.z-drop:first-letter {
+    float: left;
+    font: 900 36px/1 "Courier New", Courier, monospace;
+    padding: 4px 6px 0 0;
+    color: var(--riso-pink);
 }
 
-/* brighter primary buttons */
+/* Buttons */
+.btn {
+    display: inline-block;
+    padding: 6px 10px;
+    text-decoration: none;
+    color: #000;
+    background: #fff;
+    border: 2px solid var(--line);
+    box-shadow: 2px 2px 0 rgba(0, 0, 0, .2);
+    font-weight: 700;
+}
+
 .btn.primary {
-    border-color: transparent;
-    background: linear-gradient(90deg, var(--brand), var(--mint));
-    color: #fff;
-    box-shadow: 0 0 8px color-mix(in srgb, var(--brand) 40%, transparent);
+    background: var(--riso-cyan);
+    color: #000;
 }
 
 .btn:hover {
-    transform: translateY(-1px);
-}
-
-.btn.primary:hover {
-    filter: brightness(1.1);
-    box-shadow: 0 0 12px color-mix(in srgb, var(--mint) 55%, transparent);
+    background: #000;
+    color: #fff;
 }
 
 /* News ticker */
@@ -288,36 +304,164 @@ body {
 .ticker {
     position: relative;
     overflow: hidden;
+    background: #fff;
+    border-top: 2px solid var(--line);
 }
 
 .ticker-track {
     display: flex;
-    gap: 28px;
+    gap: 24px;
     white-space: nowrap;
-    padding: 12px 14px;
-    color: var(--muted);
-    animation: ticker 23s linear infinite;
-    border-top: 1px solid var(--border);
+    padding: 10px 14px;
+    color: #000;
+    animation: ticker 20s linear infinite;
+    font-weight: 700;
+    font-family: "Courier New", Courier, monospace;
+    border-top: 1px dashed var(--riso-pink);
 }
 
 .ticker-track .dot {
-    color: var(--coral);
+    color: var(--riso-cyan);
 }
 
 @keyframes ticker {
     from {
-        transform: translateX(0);
+        transform: translateX(0)
     }
 
     to {
-        transform: translateX(-50%);
+        transform: translateX(-50%)
     }
 }
 
-@media (prefers-reduced-motion: reduce) {
+@media(prefers-reduced-motion:reduce) {
     .ticker-track {
         animation: none;
     }
+}
+
+/* Articles (Interviews) */
+.articles {
+    margin-top: 18px;
+}
+
+.articles-wrap {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    padding: 14px;
+}
+
+@media(max-width:980px) {
+    .articles-wrap {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media(max-width:620px) {
+    .articles-wrap {
+        grid-template-columns: 1fr;
+    }
+}
+
+.post {
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    border: 2px solid var(--line);
+    background: #fff;
+    box-shadow: 6px 6px 0 rgba(0, 0, 0, .15);
+    transform: rotate(var(--tilt, 0deg));
+}
+
+.post-thumb {
+    aspect-ratio: 16/9;
+    border-bottom: 2px solid var(--line);
+    background: #f1f1f1;
+    position: relative;
+}
+
+.post-thumb::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 0 0, rgba(0, 0, 0, .1)1px, transparent 1px);
+    background-size: 6px 6px;
+    mix-blend-mode: multiply;
+    opacity: .2;
+}
+
+.post-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    filter: grayscale(85%) contrast(1.15);
+    transition: filter .2s ease;
+}
+
+.post:hover .post-thumb img {
+    filter: none;
+}
+
+.post-body {
+    padding: 12px 12px 8px;
+    display: grid;
+    gap: 6px;
+}
+
+.post-title {
+    font: 900 16px/1.2 "Courier New", Courier, monospace;
+    text-transform: uppercase;
+    margin: 0;
+}
+
+.post-excerpt {
+    margin: 0;
+    color: var(--muted);
+}
+
+.post-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 4px;
+}
+
+.tag {
+    display: inline-block;
+    font: 700 10px/1 "Courier New", Courier, monospace;
+    text-transform: uppercase;
+    letter-spacing: .5px;
+    padding: 2px 5px;
+    border: 1px dashed var(--line);
+    color: #000;
+    transform: rotate(-2deg);
+}
+
+.tag.mint {
+    background: var(--riso-cyan);
+}
+
+.tag.violet {
+    background: var(--riso-pink);
+}
+
+.tag.aqua {
+    background: var(--riso-yellow);
+}
+
+.post-foot {
+    padding: 10px 12px;
+    border-top: 2px solid var(--line);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.post-foot .meta {
+    color: var(--ink);
+    font-weight: 800;
+    font-family: "Courier New", Courier, monospace;
 }
 
 /* Footer */

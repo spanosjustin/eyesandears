@@ -4,14 +4,17 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Local Scene — Shows & News</title>
+    <title>Richmond — Shows & News</title>
     <link rel="stylesheet" href="styles.css" />
 </head>
 
-<body>
+<body class="zine">
     <div class="wrap">
         <header class="header">
-            <h1 class="brand">Local Scene</h1>
+            <h1 class="brand">
+                <span class="marker">Richmond</span>
+                <span class="brand-sub">Local Scene</span>
+            </h1>
             <nav class="tools">
                 <input id="search" class="search" type="search" placeholder="Search shows…" aria-label="Search shows" />
             </nav>
@@ -19,14 +22,15 @@
 
         <!-- Top Ad Bar -->
         <aside class="adbar" role="banner" aria-label="Sponsored">
-            <p>Ad: Promote your venue or festival here</p>
+            <p>Paid Ad Goes Here</p>
         </aside>
 
         <main class="grid">
             <!-- Left: List of Local Shows -->
             <section class="card" aria-labelledby="showsTitle">
                 <header class="card-head">
-                    <h2 id="showsTitle">Local Shows</h2>
+                    <h2 id="showsTitle" class="z-head">What to Hear</h2>
+                    <span class="stamp" aria-hidden="true">LIST</span>
                 </header>
                 <ul id="showList" class="show-list" role="list">
                     <!-- JS injects items -->
@@ -36,7 +40,8 @@
             <!-- Right: Flyer for selected show -->
             <section class="card" aria-labelledby="flyerTitle">
                 <header class="card-head">
-                    <h2 id="flyerTitle">Selected Flyer</h2>
+                    <h2 id="flyerTitle" class="z-head">Details</h2>
+                    <span class="stamp cyan" aria-hidden="true">INFO</span>
                 </header>
                 <div class="flyer">
                     <figure class="flyer-media">
@@ -45,7 +50,7 @@
                     <div class="flyer-meta">
                         <h3 id="flyerName" class="flyer-title">Pick a show from the list</h3>
                         <p id="flyerInfo" class="muted"></p>
-                        <p id="flyerDesc"></p>
+                        <p id="flyerDesc" class="z-drop"></p>
                         <a id="ticketLink" class="btn primary" href="#" target="_blank" rel="noreferrer noopener"
                             hidden>
                             Get Tickets
@@ -58,10 +63,22 @@
         <!-- Bottom: Local Band News -->
         <section class="card news" aria-labelledby="newsTitle">
             <header class="card-head">
-                <h2 id="newsTitle">Local Band News</h2>
+                <h2 id="newsTitle" class="z-head">Announcements</h2>
+                <span class="stamp pink" aria-hidden="true">NEWS</span>
             </header>
             <div class="ticker" aria-live="polite">
                 <div class="ticker-track" id="tickerTrack"></div>
+            </div>
+        </section>
+
+        <!-- Local Interviews / Articles -->
+        <section class="card articles" aria-labelledby="articlesTitle">
+            <header class="card-head torn">
+                <h2 id="articlesTitle" class="z-head">Local Interviews</h2>
+                <span class="stamp yellow" aria-hidden="true">FEATURES</span>
+            </header>
+            <div id="articlesWrap" class="articles-wrap" role="list">
+                <!-- JS injects article cards -->
             </div>
         </section>
 
